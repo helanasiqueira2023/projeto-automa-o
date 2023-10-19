@@ -9,10 +9,25 @@ on:
     branches: [ "main" ]
 
 jobs:
-ci:
+compile:
 runs-on: ubuntu-latest
 steps:
-- name: build
+- name: Build
 run: |
 echo iniciando Build...
-echo Branch utilizada ${{github.ref.name}}, Evento ${{github.event_name}}
+echo Branch utilizada ${{ github.ref.name }}, Evento ${{ github.event_name }]
+
+test:
+needs: compile
+ruins-on: ubuntu-latest
+steps: 
+- name: Test
+run: echo Iniciando Test...
+
+build:
+needs: test
+runs-on: ubuntu-latest
+steps:
+- name: Build
+run: |
+echo Branch utilizada ${{ github.ref.name }}, Evento ${{ github.event_name }}
